@@ -65,7 +65,7 @@ struct http_request_t {
     enum http_version_t http_version;
     struct http_header_t* headers;
     size_t headers_count;
-}; //TODO make constructor and destructor?
+}; 
 #define HTTP_REQUEST_INITIALIZER {METHOD_UNDEFINED, NULL, VERSION_UNDEFINED, NULL, 0}
 
 enum http_state_t parse_http_request(char* req_str, struct http_request_t* req);

@@ -80,7 +80,6 @@ static void respond(struct bufferevent* bev, struct evbuffer* output, struct htt
         }
         default: {
             evbuffer_add(output, STR_500_INTERNAL_SERVER_ERROR, strlen(STR_500_INTERNAL_SERVER_ERROR));
-            //TODO change request or trigger some flag?
             break;
         }
     }
@@ -89,7 +88,6 @@ static void respond(struct bufferevent* bev, struct evbuffer* output, struct htt
     char connection_close = 1;
     for (size_t i = 0; i < resp->headers_count; i++) {
         if (strstr(resp->headers[i].text, STR_CONNECTION_KEEP_ALIVE_HEADER) != NULL) {
-            //TODO fixme
             connection_close = 0;
         }
         evbuffer_add(output, resp->headers[i].text, resp->headers[i].len);
@@ -199,7 +197,6 @@ static void conn_read_cb(struct bufferevent *bev, void *ctx) {
         respond_with_err(bev, output, INTERNAL_SERVER_ERROR);
         return;
     }
-    // req_headers_end is now points to the last byte of CRLFCRLF
 
     char* req_str = malloc((size_t)req_headers_end.pos + 1);
     if (req_str == NULL) {
@@ -356,10 +353,6 @@ static void accept_error_cb(struct evconnlistener *listener, void *ctx) {
 }
 
 int listen_and_serve(u_int16_t port) {
-    //TODO use <int event_config_set_num_cpus_hint(struct event_config *cfg, int cpus)> ???
-    //TODO make events with priority?
-    //TODO set read low watermark?
-    //TODO create custom listener?
     struct event_base *base;
     struct evconnlistener *listener;
     struct sockaddr_in sin;
