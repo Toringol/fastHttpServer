@@ -14,6 +14,11 @@ void init_config(int cpu_limit_arg, const char* document_root_arg);
 int _get_cpu_limit(void);
 #define CPU_LIMIT _get_cpu_limit()
 
+//Logger settings
+#define LOG_LEVEL 1 //0 = DEBUG ... 5 = FATAL
+#define DO_COLOR_LOG
+//#define LOG_FULL_FILE_PATH
+
 //FileSystem settings
 char* _get_document_root(void);
 #define DOCUMENT_ROOT _get_document_root()

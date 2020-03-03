@@ -366,7 +366,7 @@ int listen_and_serve(u_int16_t port) {
 
     memset(&sin, 0, sizeof(sin));
     sin.sin_family = AF_INET;
-    sin.sin_addr.s_addr = htonl(0); //listen on 0.0.0.0
+    sin.sin_addr.s_addr = htonl(0);
     sin.sin_port = htons(port);
 
     listener = evconnlistener_new_bind(
@@ -404,7 +404,6 @@ int listen_and_serve(u_int16_t port) {
         log(INFO, "Privilage dropped to uid: %d", uid);
     }
 
-#ifndef DEBUG_MODE
     pid_t pid = 0;
     for (int i = 0; i < CPU_LIMIT - 1; i++) {
         switch(pid=fork()) {
@@ -420,7 +419,6 @@ int listen_and_serve(u_int16_t port) {
             }
         }
     }
-#endif
 
     event_base_dispatch(base);
     event_base_free(base);
